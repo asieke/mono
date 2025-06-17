@@ -1,0 +1,6 @@
+{
+  "name": "@repo/fidui",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
