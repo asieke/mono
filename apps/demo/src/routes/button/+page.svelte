@@ -185,13 +185,13 @@
 				<div class="example">
 					<h4>Form Actions</h4>
 					<div class="example-demo">
-						<form class="demo-form" on:submit|preventDefault>
+						<form class="demo-form" onsubmit={(e) => e.preventDefault()}>
 							<Button type="submit" variant="primary">Submit</Button>
 							<Button type="button" variant="secondary">Cancel</Button>
 							<Button type="reset" variant="tertiary">Reset Form</Button>
 						</form>
 					</div>
-					<pre class="code-block"><code>{`<form on:submit|preventDefault>
+					<pre class="code-block"><code>{`<form onsubmit={(e) => e.preventDefault()}>
   <Button type="submit" variant="primary">Submit</Button>
   <Button type="button" variant="secondary">Cancel</Button>
   <Button type="reset" variant="tertiary">Reset Form</Button>
