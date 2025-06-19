@@ -1,5 +1,51 @@
 <script lang="ts">
-	import { Button } from '@repo/fidui';
+	import { Button, Accordion } from '@repo/fidui';
+
+	// Sample accordion data
+	const faqItems = [
+		{
+			id: 'general-1',
+			heading: 'What is Fidui Design System?',
+			subheading: 'Learn about our component library',
+			expanded: false
+		},
+		{
+			id: 'general-2',
+			heading: 'How do I get started?',
+			expanded: false
+		},
+		{
+			id: 'general-3',
+			heading: 'What browsers are supported?',
+			subheading: 'Compatibility information',
+			expanded: false
+		}
+	];
+
+	const featureItems = [
+		{
+			id: 'feature-1',
+			heading: 'Accessibility First',
+			subheading: 'WCAG 2.1 AA compliant',
+			expanded: true
+		},
+		{
+			id: 'feature-2',
+			heading: 'Customizable Theming',
+			subheading: 'Complete design system',
+			expanded: false
+		},
+		{
+			id: 'feature-3',
+			heading: 'Framework Agnostic',
+			subheading: 'Use with any modern framework',
+			expanded: false
+		}
+	];
+
+	function handleAccordionToggle(itemId: string, expanded: boolean) {
+		console.log(`Accordion item ${itemId} ${expanded ? 'expanded' : 'collapsed'}`);
+	}
 </script>
 
 <div class="min-h-screen bg-gradient-to-br from-neutral-50 to-neutral-100">
@@ -15,9 +61,176 @@
 		<!-- Button Demo Section -->
 		<div class="mb-20">
 			<div class="mx-auto max-w-md rounded-2xl bg-white p-8 shadow-lg">
-				<h2 class="mb-6 text-center text-2xl font-semibold text-neutral-800">Component Demo</h2>
+				<h2 class="mb-6 text-center text-2xl font-semibold text-neutral-800">Button Demo</h2>
 				<div class="flex justify-center">
 					<Button>Get Started</Button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Accordion Demo Section -->
+		<div class="mb-20">
+			<div class="mx-auto max-w-4xl">
+				<div class="mb-8 text-center">
+					<h2 class="mb-4 text-3xl font-bold text-neutral-800">Accordion Component</h2>
+					<p class="text-lg text-neutral-600">
+						Fully accessible accordion with keyboard navigation and smooth animations
+					</p>
+				</div>
+
+				<div class="grid gap-8 md:grid-cols-2">
+					<!-- FAQ Example -->
+					<div class="rounded-2xl bg-white p-6 shadow-lg">
+						<h3 class="mb-4 text-xl font-semibold text-neutral-800">FAQ Example</h3>
+						<p class="mb-6 text-sm text-neutral-600">
+							Frequently asked questions with chevron icons
+						</p>
+						
+						<Accordion 
+							items={faqItems} 
+							iconType="chevron"
+							onToggle={handleAccordionToggle}
+						>
+							{#snippet children(item, isExpanded)}
+								{#if item.id === 'general-1'}
+									<p>
+										Fidui is a comprehensive design system and component library built with accessibility, 
+										performance, and developer experience in mind. It provides a complete set of UI components 
+										with consistent styling and behavior patterns.
+									</p>
+									<ul class="mt-3 list-disc pl-5">
+										<li>11 custom color palettes with 10 shades each</li>
+										<li>Fully accessible components (WCAG 2.1 AA)</li>
+										<li>Framework agnostic implementation</li>
+									</ul>
+								{:else if item.id === 'general-2'}
+									<p>
+										Getting started with Fidui is simple:
+									</p>
+									<ol class="mt-3 list-decimal pl-5 space-y-2">
+										<li>Install the package: <code class="bg-neutral-100 px-2 py-1 rounded text-sm">npm install @repo/fidui</code></li>
+										<li>Import the components you need</li>
+										<li>Start building amazing user interfaces!</li>
+									</ol>
+									<p class="mt-3">
+										Check out our <a href="#" class="text-blue-600 hover:text-blue-800 underline">documentation</a> 
+										for detailed usage examples.
+									</p>
+								{:else if item.id === 'general-3'}
+									<p>Fidui supports all modern browsers including:</p>
+									<div class="mt-3 grid grid-cols-2 gap-2 text-sm">
+										<span>✅ Chrome 88+</span>
+										<span>✅ Firefox 85+</span>
+										<span>✅ Safari 14+</span>
+										<span>✅ Edge 88+</span>
+									</div>
+									<p class="mt-3 text-sm text-neutral-600">
+										We automatically test across these browsers to ensure consistent behavior.
+									</p>
+								{/if}
+							{/snippet}
+						</Accordion>
+					</div>
+
+					<!-- Features Example -->
+					<div class="rounded-2xl bg-white p-6 shadow-lg">
+						<h3 class="mb-4 text-xl font-semibold text-neutral-800">Features Example</h3>
+						<p class="mb-6 text-sm text-neutral-600">
+							Key features with plus/minus icons and one item pre-expanded
+						</p>
+						
+						<Accordion 
+							items={featureItems} 
+							iconType="plus"
+							headingLevel={4}
+							onToggle={handleAccordionToggle}
+						>
+							{#snippet children(item, isExpanded)}
+								{#if item.id === 'feature-1'}
+									<p>
+										Every component in Fidui is built with accessibility as a core principle:
+									</p>
+									<ul class="mt-3 space-y-2">
+										<li class="flex items-start gap-2">
+											<span class="text-green-500 mt-1">✓</span>
+											<span>Screen reader compatible with proper ARIA labels</span>
+										</li>
+										<li class="flex items-start gap-2">
+											<span class="text-green-500 mt-1">✓</span>
+											<span>Full keyboard navigation support</span>
+										</li>
+										<li class="flex items-start gap-2">
+											<span class="text-green-500 mt-1">✓</span>
+											<span>High contrast colors for better visibility</span>
+										</li>
+										<li class="flex items-start gap-2">
+											<span class="text-green-500 mt-1">✓</span>
+											<span>Reduced motion preferences respected</span>
+										</li>
+									</ul>
+								{:else if item.id === 'feature-2'}
+									<p>
+										Customize every aspect of your design with our comprehensive theming system:
+									</p>
+									<div class="mt-3 space-y-2">
+										<div class="flex items-center gap-3">
+											<div class="w-4 h-4 bg-blue-500 rounded-full"></div>
+											<span>CSS custom properties for easy customization</span>
+										</div>
+										<div class="flex items-center gap-3">
+											<div class="w-4 h-4 bg-green-500 rounded-full"></div>
+											<span>Consistent spacing and typography scales</span>
+										</div>
+										<div class="flex items-center gap-3">
+											<div class="w-4 h-4 bg-purple-500 rounded-full"></div>
+											<span>Dark mode support out of the box</span>
+										</div>
+									</div>
+								{:else if item.id === 'feature-3'}
+									<p>
+										Use Fidui with any modern JavaScript framework or vanilla HTML:
+									</p>
+									<div class="mt-3 grid grid-cols-3 gap-4 text-center">
+										<div class="p-3 bg-neutral-50 rounded">
+											<div class="font-semibold text-blue-600">React</div>
+											<div class="text-xs text-neutral-600">Full support</div>
+										</div>
+										<div class="p-3 bg-neutral-50 rounded">
+											<div class="font-semibold text-green-600">Vue</div>
+											<div class="text-xs text-neutral-600">Full support</div>
+										</div>
+										<div class="p-3 bg-neutral-50 rounded">
+											<div class="font-semibold text-orange-600">Svelte</div>
+											<div class="text-xs text-neutral-600">Native</div>
+										</div>
+									</div>
+								{/if}
+							{/snippet}
+						</Accordion>
+					</div>
+				</div>
+
+				<!-- Keyboard Navigation Instructions -->
+				<div class="mt-8 rounded-xl bg-blue-50 border border-blue-200 p-6">
+					<h3 class="mb-3 text-lg font-semibold text-blue-900">Keyboard Navigation</h3>
+					<div class="grid gap-3 text-sm md:grid-cols-2">
+						<div class="flex items-center gap-3">
+							<kbd class="bg-white border border-blue-300 px-2 py-1 rounded text-xs font-mono">Tab</kbd>
+							<span class="text-blue-800">Navigate between accordion triggers</span>
+						</div>
+						<div class="flex items-center gap-3">
+							<kbd class="bg-white border border-blue-300 px-2 py-1 rounded text-xs font-mono">Enter/Space</kbd>
+							<span class="text-blue-800">Toggle accordion section</span>
+						</div>
+						<div class="flex items-center gap-3">
+							<kbd class="bg-white border border-blue-300 px-2 py-1 rounded text-xs font-mono">↑/↓</kbd>
+							<span class="text-blue-800">Move focus between sections</span>
+						</div>
+						<div class="flex items-center gap-3">
+							<kbd class="bg-white border border-blue-300 px-2 py-1 rounded text-xs font-mono">Home/End</kbd>
+							<span class="text-blue-800">Jump to first/last section</span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
